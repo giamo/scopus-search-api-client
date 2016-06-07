@@ -3,6 +3,7 @@ import xml.etree.ElementTree as ET
 import cStringIO
 
 APIKEY = '' # insert your API key here
+BASE_URL = 'http://api.elsevier.com/content'
 
 curl = pycurl.Curl()
 curl.setopt(pycurl.FAILONERROR, True)
@@ -32,7 +33,7 @@ def perform_query(query):
 		return None
 
 def get_authors_by_affiliation_id(aff_id, start_offset=1):
-	authors_by_affiliation_id_query = 'http://api.elsevier.com/content/affiliation/AFFILIATION_ID:'
+	authors_by_affiliation_id_query = '%s/affiliation/AFFILIATION_ID:' % BASE_URL
 	query_parameters = '?view=authors&count=500&start=' + str(start_offset)
 	query = authors_by_affiliation_id_query + str(aff_id) + query_parameters
 	
@@ -40,7 +41,7 @@ def get_authors_by_affiliation_id(aff_id, start_offset=1):
 	
 	
 def get_authors_by_name(surname, name):
-	authors_by_name_query_start = 'http://api.elsevier.com/content/search/index:AUTHOR?query=authlast('
+	authors_by_name_query_start = '%s/search/index:AUTHOR?query=authlast(' % BASE_URL
 	authors_by_name_query_middle = ')%20AND%20authfirst('
 	authors_by_name_query_end = ')'
 	query = authors_by_name_query_start + str(surname) + authors_by_name_query_middle + str(name) + authors_by_name_query_end
@@ -49,23 +50,21 @@ def get_authors_by_name(surname, name):
 	
 
 def get_author_profile_by_author_id(author_id):
-	author_profile_by_author_id_query = 'http://api.elsevier.com/content/author/AUTHOR_ID:'
+	author_profile_by_author_id_query = '%s/author/AUTHOR_ID:' % BASE_URL
 	query = author_profile_by_author_id_query + str(author_id)
 	
 	return perform_query(query)
 
 
 def get_documents_by_author_id(author_id, start_offset=0):
-	documents_by_author_id_query_start = 'http://api.elsevier.com/content/search/index:SCOPUS?query=au-id('
+	documents_by_author_id_query_start = '%s/search/index:SCOPUS?query=au-id(' % BASE_URL
 	documents_by_author_id_query_end = ')&sort=citedby-count&count=200&start='
 	query = documents_by_author_id_query_start + str(author_id) + documents_by_author_id_query_end + str(start_offset)
 	
 	return perform_query(query)
 
 def get_document_by_eid(eid):
-	#query = 'http://api.elsevier.com/content/search/index:SCOPUS?query=DOI(' + str(eid) + ')?view=FULL'
-	#query = 'http://api.elsevier.com/content/article/SCOPUS_ID:' + str(eid) + ''
-	query = 'http://api.elsevier.com/content/abstract/EID:' + eid# + '?view=FULL'
+	query = '%s/abstract/EID:%s' % (BASE_URL, eid)# + '?view=FULL'
 	
 	return perform_query(query)
 
