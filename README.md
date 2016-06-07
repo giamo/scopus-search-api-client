@@ -9,3 +9,17 @@ The scopus\_author\_profiles file contains methods that wrap API calls to retrie
 - all documents associated to an author profile
 
 Please insert a valid API key in scopus_api.py in order to use this library.
+
+## Using the command line interface
+
+Install required libraries:
+
+```
+pip install -r requirements.txt
+```
+
+Run CLI help for available commands:
+
+```
+./scopus_api_cli.py --help
+```

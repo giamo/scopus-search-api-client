@@ -2,6 +2,7 @@ import xml.etree.ElementTree as ET
 import scopus_api
 import xml_parser
 
+# Examples of how to use the library
 
 def retrieve_author_ids_by_affiliation_id(aff_id):
 	print 'Retrieving author ids for affiliation id ' + str(aff_id) + '...'
