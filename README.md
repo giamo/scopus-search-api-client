@@ -10,6 +10,8 @@ The scopus\_author\_profiles file contains methods that wrap API calls to retrie
 
 Please insert a valid API key in scopus_api.py in order to use this library.
 
+Check scopus_author_profiles.py for a few examples of how to use the library to retrieve information programmatically.
+
 ## Using the command line interface
 
 Install required libraries:
